@@ -3,6 +3,19 @@ if vim.g.loaded_note == 1 then
 end
 vim.g.loaded_note = 1
 
+local function complete_note_dir(arg_lead, cmd_line, cursor_pos)
+  local dirs = require("note").dirs()
+  return vim
+    .iter(dirs)
+    :filter(function(k, _)
+      return string.find(k, arg_lead)
+    end)
+    :map(function(k, _)
+      return k
+    end)
+    :totable()
+end
+
 vim.api.nvim_create_user_command("Note", function(opts)
   require("note").new_note(opts.fargs[1])
 end, { nargs = 1 })
@@ -24,27 +37,13 @@ end, {
   end,
 })
 
-vim.api.nvim_create_user_command("NoteFind", function()
-  require("note").find()
-end, { nargs = 0 })
+vim.api.nvim_create_user_command("NoteFind", function(opts)
+  require("note").find(opts.fargs[1])
+end, { nargs = "?", complete = complete_note_dir })
 
 vim.api.nvim_create_user_command("NoteCd", function(opts)
   require("note").cd(opts.fargs[1])
-end, {
-  nargs = "?",
-  complete = function(arg_lead, cmd_line, cursor_pos)
-    local dirs = require("note").dirs()
-    return vim
-      .iter(dirs)
-      :filter(function(k, _)
-        return string.find(k, arg_lead)
-      end)
-      :map(function(k, _)
-        return k
-      end)
-      :totable()
-  end,
-})
+end, { nargs = "?", complete = complete_note_dir })
 
 vim.api.nvim_create_user_command("NotePwd", function()
   require("note").pwd()

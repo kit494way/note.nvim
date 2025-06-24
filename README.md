@@ -50,7 +50,9 @@ If `key` is omitted, the default directory is used.
 Show current note directory.
 
 ```
-:NoteFind
+:NoteFind [key]
 ```
 
-Find a note and open it. This requires [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim/tree/master).
+Find a note from a note directory specified by `key` and open it.
+If `key` is omitted, the default directory is used.
+This requires [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim/tree/master).

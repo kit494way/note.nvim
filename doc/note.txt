@@ -51,8 +51,13 @@ COMMANDS                                                       *note-commands*
 :NotePwd                                                            *:NotePwd*
     Show current note directory.
 
-:NoteFind                                                          *:NoteFind*
-    Find a note and open it. This requires telescope.nvim.
+:NoteFind [key]                                                    *:NoteFind*
+    Find a note from a note directory specified by `key` and open it.
+    This requires telescope.nvim. `key` is a key of the directory registered
+    in `opts.dirs` at installation.
+    If `key` is omitted, the default directory is used.
+    Directories can also be registered with `require('note').register_dirs()`.
+    See |note.register_dirs()|.
 
 ==============================================================================
 FUNCTIONS                                                     *note-functions*

@@ -84,8 +84,13 @@ function M.edit(fname)
   vim.cmd.edit(note_path)
 end
 
-function M.find()
-  ensure_telescope().find_files { cwd = note_dir() }
+function M.find(key)
+  local dir = note_dir()
+  if key ~= nil and note_dirs[key] ~= nil then
+    dir = note_dirs[key]
+  end
+
+  ensure_telescope().find_files { cwd = dir }
 end
 
 return M
