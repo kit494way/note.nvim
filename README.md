@@ -24,11 +24,12 @@ lazy.nvim:
 ## Usage
 
 ```
-:Note {filename}
+:Note [key] {filename}
 ```
 
-Open a new file `%Y%m%d%H%M%S-{filename}` in the note directory.
+Open a new file `%Y%m%d%H%M%S-{filename}` in a note directory specified by `key`.
 `%Y%m%d%H%M%S` is replaced by current time.
+If `key` is omitted, current note directory is used.
 
 ```
 :NoteEdit {filename}
@@ -54,5 +55,5 @@ Show current note directory.
 ```
 
 Find a note from a note directory specified by `key` and open it.
-If `key` is omitted, the default directory is used.
+If `key` is omitted, the current not directory is used.
 This requires [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim/tree/master).

@@ -16,6 +16,14 @@ local function note_dir()
   end
 end
 
+local function get_dir(key)
+  local dir = note_dir()
+  if key ~= nil and note_dirs[key] ~= nil then
+    dir = note_dirs[key]
+  end
+  return dir
+end
+
 local telescope_builtin = nil
 local function ensure_telescope()
   if not telescope_builtin then
@@ -70,9 +78,12 @@ function M.cd(key)
   vim.api.nvim_echo({ { "Changed note_dir to " .. note_dir() } }, true, {})
 end
 
-function M.new_note(name)
+function M.new_note(...)
+  local args = { ... }
+  local name = args[#args]
+  local key = #args > 1 and args[1] or nil
   local prefix = os.date("%Y%m%d%H%M%S-")
-  vim.cmd.edit(vim.fs.joinpath(note_dir(), prefix .. name))
+  vim.cmd.edit(vim.fs.joinpath(get_dir(key), prefix .. name))
 end
 
 function M.edit(fname)
@@ -85,12 +96,7 @@ function M.edit(fname)
 end
 
 function M.find(key)
-  local dir = note_dir()
-  if key ~= nil and note_dirs[key] ~= nil then
-    dir = note_dirs[key]
-  end
-
-  ensure_telescope().find_files { cwd = dir }
+  ensure_telescope().find_files { cwd = get_dir(key) }
 end
 
 return M

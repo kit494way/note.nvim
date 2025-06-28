@@ -17,8 +17,19 @@ local function complete_note_dir(arg_lead, cmd_line, cursor_pos)
 end
 
 vim.api.nvim_create_user_command("Note", function(opts)
-  require("note").new_note(opts.fargs[1])
-end, { nargs = 1 })
+  require("note").new_note(unpack(opts.fargs))
+end, {
+  nargs = "+",
+  complete = function(arg_lead, cmd_line, cursor_pos)
+    local arg_positions = vim.iter(cmd_line:gmatch("()%s+")):totable()
+    if
+      (#arg_positions == 1 and cursor_pos >= arg_positions[1])
+      or (#arg_positions >= 2 and cursor_pos >= arg_positions[1] and cursor_pos < arg_positions[2])
+    then
+      return complete_note_dir(vim.split(arg_lead, " ")[1], cmd_line, cursor_pos)
+    end
+  end,
+})
 
 vim.api.nvim_create_user_command("NoteEdit", function(opts)
   require("note").edit(opts.fargs[1])

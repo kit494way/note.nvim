@@ -32,32 +32,35 @@ INSTALLATION                                               *note-installation*
     }
 
 ==============================================================================
+Directories                                                        *note-dirs*
+
+    Note directory is where note files are stored.
+    Note directories can be registered during setup or dynamically using
+    `require('note').register_dirs()`.
+    See |note-installation| and |note.register_dirs()|.
+
+==============================================================================
 COMMANDS                                                       *note-commands*
 
-:Note {filename}                                                       *:Note*
-    Open a new file `%Y%m%d%H%M%S-{filename}` in a note directory.
-    `%Y%m%d%H%M%S` is replaced by current time.
+:Note [key] {filename}                                                 *:Note*
+    Open a new file `%Y%m%d%H%M%S-{filename}` in a note directory specified
+    by `key`. `%Y%m%d%H%M%S` is replaced by current time.
+    If `key` is omitted, current note directory is used.
 
 :NoteEdit {filename}                                               *:NoteEdit*
     Open a note.
 
 :NoteCd [key]                                                        *:NoteCd*
-    Change the note directory. `key` is a key of the directory registered in
-    `opts.dirs` at installation.
-    If `key` is omitted, the default directory is used.
-    Directories can also be registered with `require('note').register_dirs()`.
-    See |note.register_dirs()|.
+    Change the note directory. `key` specifies the note directory where the
+    file is stored. If `key` is omitted, the default directory is used.
 
 :NotePwd                                                            *:NotePwd*
     Show current note directory.
 
 :NoteFind [key]                                                    *:NoteFind*
     Find a note from a note directory specified by `key` and open it.
-    This requires telescope.nvim. `key` is a key of the directory registered
-    in `opts.dirs` at installation.
-    If `key` is omitted, the default directory is used.
-    Directories can also be registered with `require('note').register_dirs()`.
-    See |note.register_dirs()|.
+    This requires telescope.nvim. If `key` is omitted, the current note
+    directory is used.
 
 ==============================================================================
 FUNCTIONS                                                     *note-functions*
