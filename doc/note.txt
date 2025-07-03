@@ -68,7 +68,7 @@ FUNCTIONS                                                     *note-functions*
 register_dirs({opts})                                   *note.register_dirs()*
     Register directories where the notes will be stored.
 
-    require("note").register({
+    require("note").register_dirs({
         default = "/path/to/default/directory/to/save/notes",
         another = "/path/to/another/directory/to/save/notes",
     })
